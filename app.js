@@ -8,6 +8,7 @@ const agent = new https.Agent({
 
 let latestOrderCreatedTime = null;
 let latestCompaniesCreated = null;
+let latestCountOfItems = null;
 
 class SpireHubSpotAPI {
   #spireBaseUrl = process.env.SPIRE_BASE_URL;
@@ -524,11 +525,14 @@ async function fetchAndPostData() {
   // await spireHubspotAPI.getCustomersByCompany("Bethel", 5); // hubspot companies
   // await spireHubspotAPI.getContactsByCompany("Bethel", 5); // hubspot contacts
   // await spireHubspotAPI.getProductsByCompany("Bethel", 5);
-  await spireHubspotAPI.getDealsByCompany("Bethel", 5);
+  // await spireHubspotAPI.getDealsByCompany("Bethel", 5);
+
+  // console.log(spireHubspotAPI.deals);
+
   // await spireHubspotAPI.postCompaniesToHubspot();
   // await spireHubspotAPI.postContactsToHubspot();
   // await spireHubspotAPI.postProductsToHubspot();
-  await spireHubspotAPI.postDealsToHubspot();
+  // await spireHubspotAPI.postDealsToHubspot();
 }
 
 (async () => {
