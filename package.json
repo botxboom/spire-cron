@@ -1,16 +1,26 @@
 {
-  "name": "spire",
+  "name": "spire-hubspot-cron",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "A cron job for syncing data between Spire and HubSpot.",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "node src/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.5.0"
-  }
+    "dotenv": "^10.0.0",
+    "node-cron": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "keywords": [
+    "spire",
+    "hubspot",
+    "cron",
+    "sync"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
 }
