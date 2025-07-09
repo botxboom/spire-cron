@@ -20,10 +20,12 @@ const syncData = async () => {
       "Data fetched from Spire successfully. Starting to post to HubSpot..."
     );
 
-    // await api.postCompaniesToHubspot();
-    // await api.postContactsToHubspot();
-    // await api.postProductsToHubspot();
-    // await api.postDealsToHubspot();
+    // console.log(api.contacts);
+
+    await api.postCompaniesToHubspot();
+    await api.postContactsToHubspot();
+    await api.postProductsToHubspot();
+    await api.postDealsToHubspot();
 
     logger.info("Data synchronization completed successfully.");
     setLastRun(now);

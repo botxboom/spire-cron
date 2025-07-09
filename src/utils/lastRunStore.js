@@ -7,9 +7,9 @@ function getLastRun(objectType) {
   try {
     const data = fs.readFileSync(LAST_RUN_FILE, "utf-8");
     const parsed = JSON.parse(data);
-    return parsed[objectType] || "1970-01-01T00:00:00.000Z";
+    return parsed[objectType] || "2025-07-07T00:00:00.000Z";
   } catch (e) {
-    return "1970-01-01T00:00:00.000Z";
+    return "2025-07-07T00:00:00.000Z";
   }
 }
 
@@ -23,3 +23,18 @@ function setLastRun(objectType, dateString) {
 }
 
 module.exports = { getLastRun, setLastRun };
+
+// CLI support: node lastRunStore.js customers 2025-07-01
+if (require.main === module) {
+  const [, , objectType, date] = process.argv;
+  if (!objectType || !date) {
+    console.log("Usage: node lastRunStore.js <objectType> <YYYY-MM-DD>");
+    process.exit(1);
+  }
+  // Convert to ISO string if only date is provided
+  const isoDate = /^\d{4}-\d{2}-\d{2}$/.test(date)
+    ? `${date}T00:00:00.000Z`
+    : date;
+  setLastRun(objectType, isoDate);
+  console.log(`Set last run for ${objectType} to ${isoDate}`);
+}

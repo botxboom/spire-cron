@@ -4,7 +4,8 @@
   "description": "A cron job for syncing data between Spire and HubSpot.",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "lastRun": "node src/utils/lastRunStore.js"
   },
   "dependencies": {
     "dotenv": "^10.0.0",

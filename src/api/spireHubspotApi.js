@@ -1,5 +1,8 @@
 const { setLastRun } = require("../utils/lastRunStore");
 
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 class SpireHubSpotAPI {
   #spireBaseUrl = process.env.SPIRE_BASE_URL;
   #spireHubspotObjectMapping = {
@@ -176,7 +179,6 @@ class SpireHubSpotAPI {
         authorization: `Basic ${process.env.SPIRE_ACCESS_TOKEN}`,
       },
     });
-    console.log(apiPath);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -309,6 +311,7 @@ class SpireHubSpotAPI {
 
   async #createOrUpdateHubSpotObject(item, object) {
     const spireid = item.properties.spireid;
+    await delay(250); // Add a small delay to avoid hitting rate limits
     const id = await this.#searchObjectByKey("spireid", spireid, object);
 
     if (id) {
@@ -343,6 +346,7 @@ class SpireHubSpotAPI {
         );
 
         if (con && companySpireId) {
+          await delay(250); // Add a small delay to avoid hitting rate limits
           const companyId = await this.#searchObjectByKey(
             "spireid",
             companySpireId,
@@ -380,6 +384,7 @@ class SpireHubSpotAPI {
       if (newDeal && customerSpireId) {
         // Add a small delay to avoid hitting rate limits
         await new Promise((resolve) => setTimeout(resolve, 250));
+        await delay(250);
         const companyId = await this.#searchObjectByKey(
           "spireid",
           customerSpireId,
