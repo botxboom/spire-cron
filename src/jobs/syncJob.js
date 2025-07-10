@@ -13,14 +13,14 @@ const syncData = async () => {
     await api.getContactsByCompany("Bethel", 100, lastRun);
     await api.getProductsByCompany("Bethel", 100, lastRun);
     await api.getDealsByCompany("Bethel", 100, lastRun);
-
+    // const response = await api.getDealByOrderNo("0000826607", "Bethel");
+    // const deal = response.records[0];
+    // await api.postOrderandItems("", "Bethel");
     setLastRun(now);
 
     logger.info(
       "Data fetched from Spire successfully. Starting to post to HubSpot..."
     );
-
-    // console.log(api.contacts);
 
     await api.postCompaniesToHubspot();
     await api.postContactsToHubspot();

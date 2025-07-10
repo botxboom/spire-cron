@@ -89,3 +89,120 @@
 {"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T16:40:19.317Z"}
 {"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T16:41:04.123Z"}
 {"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T16:41:04.123Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T18:14:51.575Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T18:14:51.578Z"}
+{"level":"error","message":"Error during data synchronization: purchasingData is not defined","stack":"ReferenceError: purchasingData is not defined\n    at SpireHubSpotAPI.getDealsByCompany (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:297:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:15:5)","timestamp":"2025-07-09T18:15:03.481Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T18:15:59.410Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T18:15:59.413Z"}
+{"level":"error","message":"Error during data synchronization: purchasingData is not defined","stack":"ReferenceError: purchasingData is not defined\n    at SpireHubSpotAPI.getDealsByCompany (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:297:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:15:5)","timestamp":"2025-07-09T18:16:03.300Z"}
+{"level":"error","message":"Error during data synchronization: purchasingData is not defined","stack":"ReferenceError: purchasingData is not defined\n    at SpireHubSpotAPI.getDealsByCompany (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:297:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:15:5)","timestamp":"2025-07-09T18:17:03.376Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T18:23:35.220Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T18:23:35.225Z"}
+{"level":"error","message":"Error during data synchronization: purchasingData is not defined","stack":"ReferenceError: purchasingData is not defined\n    at SpireHubSpotAPI.getDealsByCompany (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:314:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:15:5)","timestamp":"2025-07-09T18:24:03.263Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T18:24:32.588Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T18:24:32.591Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T18:25:03.601Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T18:25:03.601Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T18:47:30.969Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T18:47:30.974Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T18:48:01.137Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T18:48:01.138Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T18:49:01.230Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T18:49:01.230Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T18:50:01.276Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T18:50:01.276Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T19:06:25.453Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T19:06:25.455Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:07:01.624Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:07:01.625Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T19:08:42.641Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T19:08:42.644Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T19:10:18.410Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T19:10:18.413Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:11:03.741Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:11:03.741Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T19:12:45.444Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T19:12:45.447Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:13:01.565Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:13:08.226Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T19:17:12.040Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T19:17:12.043Z"}
+{"level":"error","message":"Error during data synchronization: HTTP error! status: 401","stack":"Error: HTTP error! status: 401\n    at SpireHubSpotAPI.getDealLineItemsByOrderNo (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:208:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async SpireHubSpotAPI.postOrderandItems (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:227:27)\n    at async Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:18:5)","timestamp":"2025-07-09T19:18:01.340Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T19:32:58.003Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T19:32:58.006Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:33:02.314Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:33:02.314Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T19:41:12.920Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T19:41:12.923Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:42:03.453Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:42:03.453Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T19:43:25.770Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T19:43:25.774Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:44:03.299Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:44:03.300Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:45:03.224Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:45:03.225Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:46:02.498Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:46:02.499Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:47:02.431Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:47:02.432Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T19:48:03.021Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T19:48:03.022Z"}
+{"cause":{"code":"UND_ERR_CONNECT_TIMEOUT","message":"Connect Timeout Error","name":"ConnectTimeoutError"},"level":"error","message":"Error during data synchronization: fetch failed","stack":"TypeError: fetch failed\n    at Object.fetch (node:internal/deps/undici/undici:11730:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async SpireHubSpotAPI.getDealLineItemsByOrderNo (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:200:22)\n    at async SpireHubSpotAPI.postOrderandItems (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:228:22)\n    at async Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:18:5)","timestamp":"2025-07-09T19:49:31.974Z"}
+{"cause":{"code":"UND_ERR_CONNECT_TIMEOUT","message":"Connect Timeout Error","name":"ConnectTimeoutError"},"level":"error","message":"Error during data synchronization: fetch failed","stack":"TypeError: fetch failed\n    at Object.fetch (node:internal/deps/undici/undici:11730:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async SpireHubSpotAPI.getDealLineItemsByOrderNo (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:200:22)\n    at async SpireHubSpotAPI.postOrderandItems (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:228:22)\n    at async Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:18:5)","timestamp":"2025-07-09T19:50:10.044Z"}
+{"cause":{"code":"UND_ERR_CONNECT_TIMEOUT","message":"Connect Timeout Error","name":"ConnectTimeoutError"},"level":"error","message":"Error during data synchronization: fetch failed","stack":"TypeError: fetch failed\n    at Object.fetch (node:internal/deps/undici/undici:11730:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async SpireHubSpotAPI.getDealLineItemsByOrderNo (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:200:22)\n    at async SpireHubSpotAPI.postOrderandItems (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:228:22)\n    at async Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:18:5)","timestamp":"2025-07-09T20:03:10.713Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:04:02.871Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:04:02.871Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:05:02.078Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:05:02.081Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:06:32.818Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:06:32.821Z"}
+{"level":"error","message":"Error during data synchronization: dealId is not defined","stack":"ReferenceError: dealId is not defined\n    at SpireHubSpotAPI.postOrderandItems (/Users/gulshankumar/Desktop/spire/src/api/spireHubspotApi.js:276:33)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:18:5)","timestamp":"2025-07-09T20:07:03.012Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:07:30.327Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:07:30.330Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:08:02.574Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:08:02.575Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:12:29.979Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:12:29.981Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:12:42.419Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:12:42.421Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:13:01.582Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:13:01.582Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:14:18.368Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:14:18.371Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:15:00.432Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:15:11.845Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:15:11.848Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:16:00.920Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:16:04.065Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:17:21.079Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:17:21.082Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:18:00.142Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:18:03.451Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:18:24.506Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:18:24.508Z"}
+{"level":"error","message":"Error during data synchronization: deal is not defined","stack":"ReferenceError: deal is not defined\n    at Task.syncData [as _execution] (/Users/gulshankumar/Desktop/spire/src/jobs/syncJob.js:18:33)\n    at Task.execute (/Users/gulshankumar/Desktop/spire/node_modules/node-cron/src/task.js:17:25)\n    at ScheduledTask.now (/Users/gulshankumar/Desktop/spire/node_modules/node-cron/src/scheduled-task.js:38:33)\n    at Scheduler.<anonymous> (/Users/gulshankumar/Desktop/spire/node_modules/node-cron/src/scheduled-task.js:25:18)\n    at Scheduler.emit (node:events:517:28)\n    at Timeout.matchTime [as _onTimeout] (/Users/gulshankumar/Desktop/spire/node_modules/node-cron/src/scheduler.js:30:26)\n    at listOnTimeout (node:internal/timers:569:17)\n    at process.processTimers (node:internal/timers:512:7)","timestamp":"2025-07-09T20:19:00.565Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:19:34.151Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:19:34.153Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:20:02.525Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:20:02.525Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:21:01.605Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:21:01.608Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:21:29.608Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:21:29.611Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:22:02.747Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:22:02.748Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:23:02.973Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:23:02.973Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:23:46.955Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:23:46.958Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:24:03.129Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:24:03.130Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:24:58.348Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:24:58.351Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:25:02.540Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:25:02.541Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-07-09T20:26:46.808Z"}
+{"level":"info","message":"Sync job scheduled to run every hour.","timestamp":"2025-07-09T20:26:46.811Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-07-09T20:27:03.038Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-07-09T20:27:03.039Z"}

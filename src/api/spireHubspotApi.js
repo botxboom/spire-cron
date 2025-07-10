@@ -115,6 +115,24 @@ class SpireHubSpotAPI {
     return jsonData;
   };
 
+  #getDealById = async (id, company) => {
+    const apiPath = `${
+      this.#spireBaseUrl
+    }/companies/${company}/sales/orders/${id}`;
+    const response = await fetch(apiPath, {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        authorization: `Basic ${process.env.SPIRE_ACCESS_TOKEN}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const jsonData = await response.json();
+    return jsonData;
+  };
+
   #updateObjectByKey = async (key, item, object) => {
     const apiPath = `${process.env.HUBSPOT_API_URL}/${
       this.#spireHubspotObjectMapping[object]
@@ -153,6 +171,95 @@ class SpireHubSpotAPI {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     console.log(`Contact ${contactId} associated to company ${companyId}`);
+  }
+
+  async getDealByOrderNo(orderNo, company) {
+    const apiPath = `${
+      this.#spireBaseUrl
+    }/companies/${company}/sales/orders/?filter={"orderNo":"${orderNo}"}`;
+    const response = await fetch(apiPath, {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        authorization: `Basic ${process.env.SPIRE_ACCESS_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  }
+
+  async getDealLineItemsByOrderNo(orderNo, company) {
+    const apiPath = `${
+      this.#spireBaseUrl
+    }/companies/${company}/sales/orders/${orderNo}/items`;
+    const response = await fetch(apiPath, {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        authorization: `Basic ${process.env.SPIRE_ACCESS_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  }
+
+  // async postOrderandItems(order, company) {
+
+  //   const response = await this.getDealLineItemsByOrderNo(40702, "Bethel");
+
+  //   const lineItems = response.records.map((item) => ({
+  //     properties: {
+  //       price: item.retailPrice,
+  //       quantity: item.orderQty,
+  //       name: item.description,
+  //     },
+  //     associations: [
+  //       {
+  //         to: {
+  //           id: 39908866489,
+  //         },
+  //         types: [
+  //           {
+  //             associationCategory: "HUBSPOT_DEFINED",
+  //             associationTypeId: 20,
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   }));
+
+  //   lineItems.forEach((element) => {
+  //     this.postLineItemsToHubspot(element);
+  //   });
+  // }
+
+  async postLineItemsToHubspot(lineItem) {
+    const apiPath = `${process.env.HUBSPOT_API_URL}/line_items`;
+    const response = await fetch(apiPath, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(lineItem),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const jsonData = await response.json();
+    if (jsonData.id) {
+      console.log(
+        `Line item created in HubSpot: ${jsonData.id} for deal 39908866489`
+      );
+    }
+    return jsonData;
   }
 
   async associateCompanyToDeals(companyId, dealId) {
@@ -276,14 +383,14 @@ class SpireHubSpotAPI {
     const filter = encodeURIComponent(
       JSON.stringify({ created: { $gt: lastRun } })
     );
-    const purchasingOrdersApi = `${
-      this.#spireBaseUrl
-    }/companies/${company}/purchasing/orders?limit=${limit}&filter=${filter}`;
+    // const purchasingOrdersApi = `${
+    //   this.#spireBaseUrl
+    // }/companies/${company}/purchasing/orders?limit=${limit}&filter=${filter}`;
     const salesOrdersApi = `${
       this.#spireBaseUrl
     }/companies/${company}/sales/orders?limit=${limit}&filter=${filter}`;
 
-    const purchasingData = await this.#fetchData(purchasingOrdersApi);
+    // const purchasingData = await this.#fetchData(purchasingOrdersApi);
     const salesData = await this.#fetchData(salesOrdersApi);
 
     if (salesData.records.length) {
@@ -293,7 +400,7 @@ class SpireHubSpotAPI {
       setLastRun("deals", latest.created);
     }
 
-    this.deals = [...purchasingData.records, ...salesData.records]
+    this.deals = [...salesData.records]
       .filter((d) => d.total > 0)
       .map((deal) => ({
         properties: {
@@ -392,6 +499,39 @@ class SpireHubSpotAPI {
         );
         if (companyId) {
           await this.associateCompanyToDeals(companyId, newDeal.id);
+        }
+
+        const order = await this.#getDealById(newDeal.id);
+        if (order) {
+          const lineItems = await this.getDealLineItemsByOrderNo(
+            order.id,
+            "Bethel"
+          );
+          if (lineItems.records.length > 0) {
+            for (const item of lineItems.records) {
+              const lineItem = {
+                properties: {
+                  price: item.retailPrice,
+                  quantity: item.orderQty,
+                  name: item.description,
+                },
+                associations: [
+                  {
+                    to: {
+                      id: newDeal.id,
+                    },
+                    types: [
+                      {
+                        associationCategory: "HUBSPOT_DEFINED",
+                        associationTypeId: 20,
+                      },
+                    ],
+                  },
+                ],
+              };
+              await this.postLineItemsToHubspot(lineItem);
+            }
+          }
         }
       }
     }
