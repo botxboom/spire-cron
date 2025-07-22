@@ -118,7 +118,7 @@ class SpireHubSpotAPI {
   #getDealById = async (id, company) => {
     const apiPath = `${
       this.#spireBaseUrl
-    }/companies/${company}/sales/orders/${id}`;
+    }companies/${company}/sales/orders/${id}`;
     const response = await fetch(apiPath, {
       method: "GET",
       headers: {
@@ -239,7 +239,47 @@ class SpireHubSpotAPI {
   //   });
   // }
 
-  async postLineItemsToHubspot(lineItem) {
+  async postLineItemsToHubspot(lineItem, dealId) {
+    const searchApiPath = `${process.env.HUBSPOT_API_URL}/line_items/search`;
+    const searchResponse = await fetch(searchApiPath, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({
+        filterGroups: [
+          {
+            filters: [
+              {
+                propertyName: "name",
+                operator: "EQ",
+                value: lineItem.properties.name,
+              },
+              {
+                propertyName: "associations.deal",
+                operator: "EQ",
+                value: dealId,
+              },
+            ],
+          },
+        ],
+        properties: ["name", "price", "quantity"],
+        associations: ["deal"],
+        limit: 10,
+      }),
+    });
+
+    if (!searchResponse.ok) {
+      throw new Error(`HTTP error! status: ${searchResponse.status}`);
+    }
+    const searchData = await searchResponse.json();
+    if (searchData.results.length > 0) {
+      return searchData.results[0];
+    }
+
+    // If line item does not exist, create it
+
     const apiPath = `${process.env.HUBSPOT_API_URL}/line_items`;
     const response = await fetch(apiPath, {
       method: "POST",
@@ -499,9 +539,24 @@ class SpireHubSpotAPI {
         );
         if (companyId) {
           await this.associateCompanyToDeals(companyId, newDeal.id);
+        } else {
+          const spireCompany = await this.#getSpireObjectById(
+            customerSpireId,
+            "Bethel",
+            "customers"
+          );
+          const company = this.#createCompanyObject(spireCompany);
+          const newCompany = await this.#createOrUpdateHubSpotObject(
+            company,
+            "customers"
+          );
+          await this.associateCompanyToDeals(newCompany.id, newDeal.id);
         }
 
-        const order = await this.#getDealById(newDeal.id);
+        const order = await this.#getDealById(
+          deal.properties.spireid,
+          "Bethel"
+        );
         if (order) {
           const lineItems = await this.getDealLineItemsByOrderNo(
             order.id,
@@ -513,7 +568,8 @@ class SpireHubSpotAPI {
                 properties: {
                   price: item.retailPrice,
                   quantity: item.orderQty,
-                  name: item.description,
+                  name: item.inventory.partNo,
+                  description: item.description,
                 },
                 associations: [
                   {
@@ -529,7 +585,9 @@ class SpireHubSpotAPI {
                   },
                 ],
               };
-              await this.postLineItemsToHubspot(lineItem);
+              if (lineItem.properties.name && newDeal.id) {
+                await this.postLineItemsToHubspot(lineItem, newDeal.id);
+              }
             }
           }
         }

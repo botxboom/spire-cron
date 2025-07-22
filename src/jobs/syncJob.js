@@ -9,9 +9,9 @@ const syncData = async () => {
     const now = new Date().toISOString();
 
     const api = new SpireHubSpotAPI();
-    await api.getCustomersByCompany("Bethel", 100, lastRun);
-    await api.getContactsByCompany("Bethel", 100, lastRun);
-    await api.getProductsByCompany("Bethel", 100, lastRun);
+    // await api.getCustomersByCompany("Bethel", 100, lastRun);
+    // await api.getContactsByCompany("Bethel", 100, lastRun);
+    // await api.getProductsByCompany("Bethel", 100, lastRun);
     await api.getDealsByCompany("Bethel", 100, lastRun);
     // const response = await api.getDealByOrderNo("0000826607", "Bethel");
     // const deal = response.records[0];
@@ -22,9 +22,9 @@ const syncData = async () => {
       "Data fetched from Spire successfully. Starting to post to HubSpot..."
     );
 
-    await api.postCompaniesToHubspot();
-    await api.postContactsToHubspot();
-    await api.postProductsToHubspot();
+    // await api.postCompaniesToHubspot();
+    // await api.postContactsToHubspot();
+    // await api.postProductsToHubspot();
     await api.postDealsToHubspot();
 
     logger.info("Data synchronization completed successfully.");
@@ -35,9 +35,10 @@ const syncData = async () => {
 };
 
 function startSyncJob() {
-  // Schedule the sync job to run every minute
-  cron.schedule("* * * * *", syncData);
-  logger.info("Sync job scheduled to run every hour.");
+  // Schedule the sync job to run every 10 minutes
+  syncData();
+  // cron.schedule("* * * * *", syncData);
+  logger.info("Sync job scheduled to run every 10 minutes.");
 }
 
 module.exports = { startSyncJob };
