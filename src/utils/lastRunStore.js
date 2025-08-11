@@ -7,9 +7,10 @@ function getLastRun(objectType) {
   try {
     const data = fs.readFileSync(LAST_RUN_FILE, "utf-8");
     const parsed = JSON.parse(data);
-    return parsed[objectType] || "2025-07-07T00:00:00.000Z";
+    console.log(parsed[objectType]);
+    return parsed[objectType] || "2025-07-08T14:17:40.063960";
   } catch (e) {
-    return "2025-07-07T00:00:00.000Z";
+    return "2025-07-08T14:17:40.063960";
   }
 }
 

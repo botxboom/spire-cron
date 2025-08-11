@@ -1,4 +1,5 @@
-const { setLastRun } = require("../utils/lastRunStore");
+const { setLastRun, getLastRun } = require("../utils/lastRunStore");
+require("dotenv").config();
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -144,7 +145,10 @@ class SpireHubSpotAPI {
         Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
       },
       body: JSON.stringify(item),
+    }).catch((error) => {
+      console.error("Error in updateObjectByKey:", error);
     });
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -208,36 +212,6 @@ class SpireHubSpotAPI {
     }
     return await response.json();
   }
-
-  // async postOrderandItems(order, company) {
-
-  //   const response = await this.getDealLineItemsByOrderNo(40702, "Bethel");
-
-  //   const lineItems = response.records.map((item) => ({
-  //     properties: {
-  //       price: item.retailPrice,
-  //       quantity: item.orderQty,
-  //       name: item.description,
-  //     },
-  //     associations: [
-  //       {
-  //         to: {
-  //           id: 39908866489,
-  //         },
-  //         types: [
-  //           {
-  //             associationCategory: "HUBSPOT_DEFINED",
-  //             associationTypeId: 20,
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   }));
-
-  //   lineItems.forEach((element) => {
-  //     this.postLineItemsToHubspot(element);
-  //   });
-  // }
 
   async postLineItemsToHubspot(lineItem, dealId) {
     const searchApiPath = `${process.env.HUBSPOT_API_URL}/line_items/search`;
@@ -334,7 +308,11 @@ class SpireHubSpotAPI {
     return await response.json();
   }
 
-  async getCustomersByCompany(company, limit = 100, lastRun = null) {
+  async getCustomersByCompany(
+    company,
+    limit = 100,
+    lastRun = getLastRun("customers")
+  ) {
     const filter = encodeURIComponent(
       JSON.stringify({ created: { $gt: lastRun } })
     );
@@ -353,7 +331,11 @@ class SpireHubSpotAPI {
     return this.companies;
   }
 
-  async getContactsByCompany(company, limit = 100, lastRun = null) {
+  async getContactsByCompany(
+    company,
+    limit = 100,
+    lastRun = getLastRun("contacts")
+  ) {
     const filter = encodeURIComponent(
       JSON.stringify({ created: { $gt: lastRun } })
     );
@@ -375,14 +357,18 @@ class SpireHubSpotAPI {
           spireid: contact.id,
           email: contact.email,
           phone: contact.phone,
-          compnayIdToLink: contact.address.id,
+          companyIdToLink: contact.address.id,
         },
       }));
 
     return this.contacts;
   }
 
-  async getProductsByCompany(company, limit = 100, lastRun = null) {
+  async getProductsByCompany(
+    company,
+    limit = 100,
+    lastRun = getLastRun("products")
+  ) {
     const filter = encodeURIComponent(
       JSON.stringify({ created: { $gt: lastRun } })
     );
@@ -419,7 +405,7 @@ class SpireHubSpotAPI {
     return this.products;
   }
 
-  async getDealsByCompany(company, limit = 100, lastRun = null) {
+  async getDealsByCompany(company, limit = 100, lastRun = getLastRun("deals")) {
     const filter = encodeURIComponent(
       JSON.stringify({ created: { $gt: lastRun } })
     );
@@ -458,7 +444,6 @@ class SpireHubSpotAPI {
 
   async #createOrUpdateHubSpotObject(item, object) {
     const spireid = item.properties.spireid;
-    await delay(250); // Add a small delay to avoid hitting rate limits
     const id = await this.#searchObjectByKey("spireid", spireid, object);
 
     if (id) {
@@ -471,51 +456,125 @@ class SpireHubSpotAPI {
   async postCompaniesToHubspot() {
     if (this.companies.length === 0) return;
 
-    await Promise.all(
-      this.companies.map(
-        async (company) =>
-          await this.#createOrUpdateHubSpotObject(company, "customers")
-      )
-    );
+    for (const company of this.companies) {
+      await delay(300); // 300ms delay between calls
+      await this.#createOrUpdateHubSpotObject(company, "customers");
+    }
   }
 
   async postContactsToHubspot() {
     if (this.contacts.length === 0) return;
 
-    await Promise.all(
-      this.contacts.map(async (contact) => {
-        const companySpireId = contact.properties.compnayIdToLink;
-        delete contact.properties.compnayIdToLink;
+    for (const contact of this.contacts) {
+      const companySpireId = contact.properties.companyIdToLink;
+      delete contact.properties.companyIdToLink;
 
-        const con = await this.#createOrUpdateHubSpotObject(
-          contact,
-          "contacts"
+      const con = await this.#createOrUpdateHubSpotObject(contact, "contacts");
+
+      if (con && companySpireId) {
+        await delay(300); // Add a small delay to avoid hitting rate limits
+        const companyId = await this.#searchObjectByKey(
+          "spireid",
+          companySpireId,
+          "customers"
         );
-
-        if (con && companySpireId) {
-          await delay(250); // Add a small delay to avoid hitting rate limits
-          const companyId = await this.#searchObjectByKey(
-            "spireid",
-            companySpireId,
-            "customers"
-          );
-          if (companyId) {
-            await this.associateContactToCompany(con.id, companyId);
-          }
+        if (companyId) {
+          await this.associateContactToCompany(con.id, companyId);
         }
-      })
-    );
+      }
+    }
+  }
+
+  async associateContactToDeals(contactId, dealId) {
+    const apiPath = `https://api.hubapi.com/crm/v4/objects/deals/${dealId}/associations/default/contact/${contactId}`;
+    const response = await fetch(apiPath, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    console.log(`Contact ${contactId} associated to deal ${dealId}`);
+    return response;
   }
 
   async postProductsToHubspot() {
     if (this.products.length === 0) return;
 
-    await Promise.all(
-      this.products.map(
-        async (product) =>
-          await this.#createOrUpdateHubSpotObject(product, "products")
-      )
-    );
+    for (const product of this.products) {
+      await delay(300); // 300ms delay between calls
+      await this.#createOrUpdateHubSpotObject(product, "products");
+    }
+  }
+
+  async postDealContactsAndAssociate(deal, contact) {
+    console.log(contact);
+    if (JSON.stringify(contact) !== "{}" && contact?.properties?.email) {
+      // Add a small delay to avoid hitting rate limits
+      await delay(300);
+      const contactId = await this.#searchObjectByKey(
+        "email",
+        contact.properties.spireid,
+        "contacts"
+      );
+      if (contactId) {
+        await this.#updateObjectByKey(contactId, contact, "contacts");
+        await this.associateContactToDeals(contactId, deal.id);
+      } else {
+        const newCont = await this.#createOrUpdateHubSpotObject(
+          contact,
+          "contacts"
+        );
+        await this.associateContactToDeals(newCont.id, deal.id);
+      }
+    }
+  }
+
+  async getOrderContactsByOrderId(customerSpireId) {
+    const apiPath = `${
+      this.#spireBaseUrl
+    }/companies/Bethel/customers/${customerSpireId}`;
+
+    const response = await fetch(apiPath, {
+      method: "GET",
+      headers: {
+        Authorization: "Basic a2pvbDpLam9sMTIzKg==",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch customer: ${response.statusText}`);
+    }
+    const data = await response.json();
+
+    const contacts = data.address.contacts;
+    const contactsToSend = [];
+    const uniqueEmails = [];
+    if (contacts.length > 0) {
+      for (const contact of contacts) {
+        if (uniqueEmails.includes(contact.email)) {
+          continue;
+        } else {
+          uniqueEmails.push(contact.email);
+          const cont = {
+            properties: {
+              spireid: contact.email,
+              firstname: contact.name.split(" ")[0],
+              lastname: contact.name.split(" ")[1],
+              email: contact.email,
+              phone: contact.phone.number,
+            },
+          };
+
+          contactsToSend.push(cont);
+        }
+      }
+    }
+
+    return contactsToSend;
   }
 
   async postDealsToHubspot() {
@@ -531,7 +590,7 @@ class SpireHubSpotAPI {
       if (newDeal && customerSpireId) {
         // Add a small delay to avoid hitting rate limits
         await new Promise((resolve) => setTimeout(resolve, 250));
-        await delay(250);
+        await delay(300);
         const companyId = await this.#searchObjectByKey(
           "spireid",
           customerSpireId,
@@ -557,7 +616,15 @@ class SpireHubSpotAPI {
           deal.properties.spireid,
           "Bethel"
         );
+
         if (order) {
+          const orderContacts = await this.getOrderContactsByOrderId(
+            customerSpireId
+          );
+          for (const contact of orderContacts) {
+            await this.postDealContactsAndAssociate(newDeal, contact);
+          }
+
           const lineItems = await this.getDealLineItemsByOrderNo(
             order.id,
             "Bethel"
