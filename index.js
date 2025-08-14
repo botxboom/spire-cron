@@ -1,7 +1,7 @@
 // File: /spire-hubspot-cron/spire-hubspot-cron/src/index.js
 
-const { startSyncJob } = require("./jobs/syncJob");
-const logger = require("./utils/logger");
+const { startSyncJob } = require("./syncJob");
+const logger = require("./logger");
 const https = require("https");
 require("dotenv").config();
 

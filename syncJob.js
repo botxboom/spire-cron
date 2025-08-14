@@ -1,29 +1,29 @@
 const cron = require("node-cron");
-const SpireHubSpotAPI = require("../api/spireHubspotApi");
-const logger = require("../utils/logger");
+const SpireHubSpotAPI = require("./spireHubspotApi");
+const logger = require("./logger");
 
 const syncData = async () => {
   try {
     const api = new SpireHubSpotAPI();
 
-    await api.getCustomersByCompany("Bethel", 1000);
-    await api.getContactsByCompany("Bethel", 1000);
-    await api.getProductsByCompany("Bethel", 1000);
+    // await api.getCustomersByCompany("Bethel", 1000);
+    // await api.getContactsByCompany("Bethel", 1000);
+    // await api.getProductsByCompany("Bethel", 1000);
     await api.getDealsByCompany("Bethel", 1000);
 
     logger.info(
       "Data fetched from Spire successfully. Starting to post to HubSpot..."
     );
 
-    await api.postCompaniesToHubspot().catch((error) => {
-      logger.error("Error posting companies to HubSpot:", error);
-    });
-    await api.postContactsToHubspot().catch((error) => {
-      logger.error("Error posting contacts to HubSpot:", error);
-    });
-    await api.postProductsToHubspot().catch((error) => {
-      logger.error("Error posting products to HubSpot:", error);
-    });
+    // await api.postCompaniesToHubspot().catch((error) => {
+    //   logger.error("Error posting companies to HubSpot:", error);
+    // });
+    // await api.postContactsToHubspot().catch((error) => {
+    //   logger.error("Error posting contacts to HubSpot:", error);
+    // });
+    // await api.postProductsToHubspot().catch((error) => {
+    //   logger.error("Error posting products to HubSpot:", error);
+    // });
     await api.postDealsToHubspot().catch((error) => {
       logger.error("Error posting deals to HubSpot:", error);
     });

@@ -1,4 +1,4 @@
-const { setLastRun, getLastRun } = require("../utils/lastRunStore");
+const { setLastRun, getLastRun } = require("./lastRunStore");
 require("dotenv").config();
 
 function delay(ms) {

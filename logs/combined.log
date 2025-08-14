@@ -589,3 +589,5 @@
 {"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-11T19:37:57.127Z"}
 {"level":"info","message":"Sync job scheduled to run every 1 hour.","timestamp":"2025-08-11T19:37:57.162Z"}
 {"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-11T19:38:09.198Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-14T10:42:44.886Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-14T10:42:44.889Z"}
