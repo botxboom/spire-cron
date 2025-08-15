@@ -44,7 +44,10 @@ class SpireHubSpotAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
 
     const jsonData = await response.json();
@@ -78,7 +81,10 @@ class SpireHubSpotAPI {
     });
 
     if (response.status !== 200) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
 
     const jsonData = await response.json();
@@ -105,7 +111,10 @@ class SpireHubSpotAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     const jsonData = await response.json();
     if (jsonData.id) {
@@ -129,29 +138,14 @@ class SpireHubSpotAPI {
       },
     });
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     const jsonData = await response.json();
     return jsonData;
   };
-
-  // #getDealById = async (id, company) => {
-  //   const apiPath = `${
-  //     this.#spireBaseUrl
-  //   }companies/${company}/sales/orders/${id}`;
-  //   const response = await fetch(apiPath, {
-  //     method: "GET",
-  //     headers: {
-  //       accept: "application/json",
-  //       authorization: `Basic ${process.env.SPIRE_ACCESS_TOKEN}`,
-  //     },
-  //   });
-  //   if (!response.ok) {
-  //     throw new Error(`HTTP error! status: ${response.status}`);
-  //   }
-  //   const jsonData = await response.json();
-  //   return jsonData;
-  // };
 
   #updateObjectByKey = async (key, item, object) => {
     const apiPath = `${process.env.HUBSPOT_API_URL}/${
@@ -169,7 +163,10 @@ class SpireHubSpotAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     const jsonData = await response.json();
     if (jsonData.id) {
@@ -191,7 +188,10 @@ class SpireHubSpotAPI {
       },
     });
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     console.log(`Contact ${contactId} associated to company ${companyId}`);
   }
@@ -209,7 +209,10 @@ class SpireHubSpotAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     return await response.json();
   }
@@ -230,28 +233,13 @@ class SpireHubSpotAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     return await response.json();
   }
-
-  // async getDealLineItemsByOrderNo(orderNo, company) {
-  //   const apiPath = `${
-  //     this.#spireBaseUrl
-  //   }/companies/${company}/sales/orders/${orderNo}/items`;
-  //   const response = await fetch(apiPath, {
-  //     method: "GET",
-  //     headers: {
-  //       accept: "application/json",
-  //       authorization: `Basic ${process.env.SPIRE_ACCESS_TOKEN}`,
-  //     },
-  //   });
-
-  //   if (!response.ok) {
-  //     throw new Error(`HTTP error! status: ${response.status}`);
-  //   }
-  //   return await response.json();
-  // }
 
   async postLineItemsToHubspot(lineItem, dealId) {
     const searchApiPath = `${process.env.HUBSPOT_API_URL}/line_items/search`;
@@ -285,7 +273,10 @@ class SpireHubSpotAPI {
     });
 
     if (!searchResponse.ok) {
-      throw new Error(`HTTP error! status: ${searchResponse.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     const searchData = await searchResponse.json();
     if (searchData.results.length > 0) {
@@ -305,7 +296,10 @@ class SpireHubSpotAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     const jsonData = await response.json();
     if (jsonData.id) {
@@ -327,7 +321,10 @@ class SpireHubSpotAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     console.log(`Company ${companyId} associated to deal ${dealId}`);
   }
@@ -342,7 +339,10 @@ class SpireHubSpotAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
 
     return await response.json();
@@ -357,7 +357,7 @@ class SpireHubSpotAPI {
     }/companies/${company}/customers?limit=${this.limit}&filter=${filter}`;
     const jsonData = await this.#fetchData(apiPath);
     if (jsonData.records.length) {
-      console.log("total records:", jsonData.records.length);
+      console.log("syncing customers:", jsonData.records.length);
       const latest = jsonData.records.reduce((a, b) => {
         return new Date(a.created) > new Date(b.created) ? a : b;
       });
@@ -377,7 +377,7 @@ class SpireHubSpotAPI {
     }/companies/${company}/contacts?limit=${this.limit}&filter=${filter}`;
     const jsonData = await this.#fetchData(apiPath);
     if (jsonData.records.length) {
-      console.log("total records:", jsonData.records.length);
+      console.log("syncing contacts:", jsonData.records.length);
       const latest = jsonData.records.reduce((a, b) => {
         return new Date(a.created) > new Date(b.created) ? a : b;
       });
@@ -412,7 +412,7 @@ class SpireHubSpotAPI {
 
     const salesData = await this.#fetchData(salesApiPath);
     if (salesData.records.length) {
-      console.log("total records:", salesData.records.length);
+      console.log("syncing products:", salesData.records.length);
       const latest = salesData.records.reduce((a, b) => {
         return new Date(a.created) > new Date(b.created) ? a : b;
       });
@@ -482,7 +482,7 @@ class SpireHubSpotAPI {
     const salesData = await this.#fetchData(salesOrdersApi);
 
     if (salesData.records.length) {
-      console.log("total records:", salesData.records.length);
+      console.log("syncing deals:", salesData.records.length);
       const latest = salesData.records.reduce((a, b) => {
         return new Date(a.created) > new Date(b.created) ? a : b;
       });
@@ -558,7 +558,10 @@ class SpireHubSpotAPI {
       },
     });
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     console.log(`Contact ${contactId} associated to deal ${dealId}`);
     return response;
@@ -609,7 +612,10 @@ class SpireHubSpotAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch customer: ${response.statusText}`);
+      console.log(
+        `Error fetching ${object} with ID ${id}: ${response.statusText}`
+      );
+      return null;
     }
     const data = await response.json();
 

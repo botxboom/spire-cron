@@ -625,3 +625,11 @@
 {"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:34:40.466Z"}
 {"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-15T20:34:49.596Z"}
 {"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-08-15T20:34:49.597Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T20:39:11.335Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:39:11.371Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T20:41:21.518Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:41:21.552Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-15T20:41:28.792Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T20:46:52.417Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:46:52.456Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-15T20:46:59.672Z"}
