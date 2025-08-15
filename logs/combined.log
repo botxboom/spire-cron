@@ -591,3 +591,37 @@
 {"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-11T19:38:09.198Z"}
 {"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-14T10:42:44.886Z"}
 {"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-14T10:42:44.889Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T19:52:14.615Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T19:52:14.618Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T19:53:02.202Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T19:53:02.204Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T19:53:41.316Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T19:53:41.318Z"}
+{"level":"error","message":"Error during data synchronization: company is not defined","stack":"ReferenceError: company is not defined\n    at SpireHubSpotAPI.getDealsByCustomer (/Users/gulshankumar/Desktop/spire/spireHubspotApi.js:415:19)\n    at syncData (/Users/gulshankumar/Desktop/spire/syncJob.js:12:15)\n    at startSyncJob (/Users/gulshankumar/Desktop/spire/syncJob.js:38:3)\n    at init (/Users/gulshankumar/Desktop/spire/index.js:15:3)\n    at Object.<anonymous> (/Users/gulshankumar/Desktop/spire/index.js:18:1)\n    at Module._compile (node:internal/modules/cjs/loader:1356:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1414:10)\n    at Module.load (node:internal/modules/cjs/loader:1197:32)\n    at Module._load (node:internal/modules/cjs/loader:1013:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)","timestamp":"2025-08-15T19:53:41.319Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T19:53:59.683Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T19:53:59.735Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-15T19:54:02.513Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-08-15T19:54:02.514Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T20:05:32.184Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:05:32.220Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-15T20:05:35.062Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-08-15T20:05:35.063Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T20:05:41.583Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:05:41.611Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-15T20:05:44.491Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-08-15T20:05:44.491Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T20:06:42.528Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:06:42.566Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-15T20:06:45.424Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-08-15T20:23:08.291Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T20:32:02.374Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:32:02.377Z"}
+{"level":"error","message":"Error during data synchronization: limit is not defined","stack":"ReferenceError: limit is not defined\n    at SpireHubSpotAPI.getCustomersByCompany (/Users/gulshankumar/Desktop/spire/spireHubspotApi.js:356:46)\n    at syncData (/Users/gulshankumar/Desktop/spire/syncJob.js:9:15)\n    at startSyncJob (/Users/gulshankumar/Desktop/spire/syncJob.js:38:3)\n    at init (/Users/gulshankumar/Desktop/spire/index.js:15:3)\n    at Object.<anonymous> (/Users/gulshankumar/Desktop/spire/index.js:18:1)\n    at Module._compile (node:internal/modules/cjs/loader:1356:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1414:10)\n    at Module.load (node:internal/modules/cjs/loader:1197:32)\n    at Module._load (node:internal/modules/cjs/loader:1013:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)","timestamp":"2025-08-15T20:32:02.378Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T20:33:24.794Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:33:24.829Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-15T20:33:37.175Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-08-15T20:33:37.175Z"}
+{"level":"info","message":"Application started. Initializing sync job...","timestamp":"2025-08-15T20:34:40.431Z"}
+{"level":"info","message":"Sync job scheduled to run 4 times a day (00:00, 06:00, 12:00, 18:00).","timestamp":"2025-08-15T20:34:40.466Z"}
+{"level":"info","message":"Data fetched from Spire successfully. Starting to post to HubSpot...","timestamp":"2025-08-15T20:34:49.596Z"}
+{"level":"info","message":"Data synchronization completed successfully.","timestamp":"2025-08-15T20:34:49.597Z"}

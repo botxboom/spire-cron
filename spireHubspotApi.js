@@ -18,6 +18,7 @@ class SpireHubSpotAPI {
     this.contacts = [];
     this.products = [];
     this.deals = [];
+    this.limit = 1000;
   }
 
   #createCompanyObject(spireData) {
@@ -116,10 +117,10 @@ class SpireHubSpotAPI {
     return jsonData;
   };
 
-  #getDealById = async (id, company) => {
+  #getDealById2 = async (id, company) => {
     const apiPath = `${
       this.#spireBaseUrl
-    }companies/${company}/sales/orders/${id}`;
+    }companies/${company}/sales/invoices/${id}`;
     const response = await fetch(apiPath, {
       method: "GET",
       headers: {
@@ -133,6 +134,24 @@ class SpireHubSpotAPI {
     const jsonData = await response.json();
     return jsonData;
   };
+
+  // #getDealById = async (id, company) => {
+  //   const apiPath = `${
+  //     this.#spireBaseUrl
+  //   }companies/${company}/sales/orders/${id}`;
+  //   const response = await fetch(apiPath, {
+  //     method: "GET",
+  //     headers: {
+  //       accept: "application/json",
+  //       authorization: `Basic ${process.env.SPIRE_ACCESS_TOKEN}`,
+  //     },
+  //   });
+  //   if (!response.ok) {
+  //     throw new Error(`HTTP error! status: ${response.status}`);
+  //   }
+  //   const jsonData = await response.json();
+  //   return jsonData;
+  // };
 
   #updateObjectByKey = async (key, item, object) => {
     const apiPath = `${process.env.HUBSPOT_API_URL}/${
@@ -195,10 +214,13 @@ class SpireHubSpotAPI {
     return await response.json();
   }
 
-  async getDealLineItemsByOrderNo(orderNo, company) {
+  async getDealLineItemsByOrderNo2(orderNo, company) {
+    const filter = { id: orderNo };
     const apiPath = `${
       this.#spireBaseUrl
-    }/companies/${company}/sales/orders/${orderNo}/items`;
+    }/companies/${company}/sales/invoice_items?filter=${JSON.stringify(
+      filter
+    )}`;
     const response = await fetch(apiPath, {
       method: "GET",
       headers: {
@@ -212,6 +234,24 @@ class SpireHubSpotAPI {
     }
     return await response.json();
   }
+
+  // async getDealLineItemsByOrderNo(orderNo, company) {
+  //   const apiPath = `${
+  //     this.#spireBaseUrl
+  //   }/companies/${company}/sales/orders/${orderNo}/items`;
+  //   const response = await fetch(apiPath, {
+  //     method: "GET",
+  //     headers: {
+  //       accept: "application/json",
+  //       authorization: `Basic ${process.env.SPIRE_ACCESS_TOKEN}`,
+  //     },
+  //   });
+
+  //   if (!response.ok) {
+  //     throw new Error(`HTTP error! status: ${response.status}`);
+  //   }
+  //   return await response.json();
+  // }
 
   async postLineItemsToHubspot(lineItem, dealId) {
     const searchApiPath = `${process.env.HUBSPOT_API_URL}/line_items/search`;
@@ -308,19 +348,16 @@ class SpireHubSpotAPI {
     return await response.json();
   }
 
-  async getCustomersByCompany(
-    company,
-    limit = 100,
-    lastRun = getLastRun("customers")
-  ) {
+  async getCustomersByCompany(company, lastRun = getLastRun("customers")) {
     const filter = encodeURIComponent(
       JSON.stringify({ created: { $gt: lastRun } })
     );
     const apiPath = `${
       this.#spireBaseUrl
-    }/companies/${company}/customers?limit=${limit}&filter=${filter}`;
+    }/companies/${company}/customers?limit=${this.limit}&filter=${filter}`;
     const jsonData = await this.#fetchData(apiPath);
     if (jsonData.records.length) {
+      console.log("total records:", jsonData.records.length);
       const latest = jsonData.records.reduce((a, b) => {
         return new Date(a.created) > new Date(b.created) ? a : b;
       });
@@ -331,19 +368,16 @@ class SpireHubSpotAPI {
     return this.companies;
   }
 
-  async getContactsByCompany(
-    company,
-    limit = 100,
-    lastRun = getLastRun("contacts")
-  ) {
+  async getContactsByCompany(company, lastRun = getLastRun("contacts")) {
     const filter = encodeURIComponent(
       JSON.stringify({ created: { $gt: lastRun } })
     );
     const apiPath = `${
       this.#spireBaseUrl
-    }/companies/${company}/contacts?limit=${limit}&filter=${filter}`;
+    }/companies/${company}/contacts?limit=${this.limit}&filter=${filter}`;
     const jsonData = await this.#fetchData(apiPath);
     if (jsonData.records.length) {
+      console.log("total records:", jsonData.records.length);
       const latest = jsonData.records.reduce((a, b) => {
         return new Date(a.created) > new Date(b.created) ? a : b;
       });
@@ -364,24 +398,21 @@ class SpireHubSpotAPI {
     return this.contacts;
   }
 
-  async getProductsByCompany(
-    company,
-    limit = 100,
-    lastRun = getLastRun("products")
-  ) {
+  async getProductsByCompany(company, lastRun = getLastRun("products")) {
     const filter = encodeURIComponent(
       JSON.stringify({ created: { $gt: lastRun } })
     );
     const purchasingApiPath = `${
       this.#spireBaseUrl
-    }/companies/${company}/purchasing/items?limit=${limit}`;
+    }/companies/${company}/purchasing/items?limit=${this.limit}`;
 
     const salesApiPath = `${
       this.#spireBaseUrl
-    }/companies/${company}/sales/items?limit=${limit}&filter=${filter}`;
+    }/companies/${company}/sales/items?limit=${this.limit}&filter=${filter}`;
 
     const salesData = await this.#fetchData(salesApiPath);
     if (salesData.records.length) {
+      console.log("total records:", salesData.records.length);
       const latest = salesData.records.reduce((a, b) => {
         return new Date(a.created) > new Date(b.created) ? a : b;
       });
@@ -405,21 +436,53 @@ class SpireHubSpotAPI {
     return this.products;
   }
 
-  async getDealsByCompany(company, limit = 100, lastRun = getLastRun("deals")) {
+  async getDealsByCustomer(customerId) {
     const filter = encodeURIComponent(
-      JSON.stringify({ created: { $gt: lastRun } })
+      JSON.stringify({ "customer.id": customerId })
     );
-    // const purchasingOrdersApi = `${
-    //   this.#spireBaseUrl
-    // }/companies/${company}/purchasing/orders?limit=${limit}&filter=${filter}`;
+
     const salesOrdersApi = `${
       this.#spireBaseUrl
-    }/companies/${company}/sales/orders?limit=${limit}&filter=${filter}`;
+    }/companies/Bethel/sales/invoices?limit=${this.limit}&filter=${filter}`;
 
-    // const purchasingData = await this.#fetchData(purchasingOrdersApi);
     const salesData = await this.#fetchData(salesOrdersApi);
 
     if (salesData.records.length) {
+      const latest = salesData.records.reduce((a, b) => {
+        return new Date(a.created) > new Date(b.created) ? a : b;
+      });
+      setLastRun("deals", latest.created);
+    }
+
+    this.deals = [...salesData.records]
+      .filter((d) => d.total > 0)
+      .map((deal) => ({
+        properties: {
+          spireid: deal.id,
+          dealname: deal.number ?? deal.orderNo,
+          pipeline: "default",
+          dealstage: "contractsent",
+          amount: deal.total,
+          customerId: deal?.customer?.id,
+        },
+      }));
+
+    return this.deals;
+  }
+
+  async getDealsByCompany(company, lastRun = getLastRun("deals")) {
+    const filter = encodeURIComponent(
+      JSON.stringify({ created: { $gt: lastRun } })
+    );
+
+    const salesOrdersApi = `${
+      this.#spireBaseUrl
+    }/companies/${company}/sales/invoices?limit=${this.limit}&filter=${filter}`;
+
+    const salesData = await this.#fetchData(salesOrdersApi);
+
+    if (salesData.records.length) {
+      console.log("total records:", salesData.records.length);
       const latest = salesData.records.reduce((a, b) => {
         return new Date(a.created) > new Date(b.created) ? a : b;
       });
@@ -612,7 +675,7 @@ class SpireHubSpotAPI {
           await this.associateCompanyToDeals(newCompany.id, newDeal.id);
         }
 
-        const order = await this.#getDealById(
+        const order = await this.#getDealById2(
           deal.properties.spireid,
           "Bethel"
         );
@@ -625,7 +688,7 @@ class SpireHubSpotAPI {
             await this.postDealContactsAndAssociate(newDeal, contact);
           }
 
-          const lineItems = await this.getDealLineItemsByOrderNo(
+          const lineItems = await this.getDealLineItemsByOrderNo2(
             order.id,
             "Bethel"
           );
@@ -633,7 +696,7 @@ class SpireHubSpotAPI {
             for (const item of lineItems.records) {
               const lineItem = {
                 properties: {
-                  price: item.retailPrice,
+                  price: item.unitPrice,
                   quantity: item.orderQty,
                   name: item.inventory.partNo,
                   description: item.description,

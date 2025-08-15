@@ -6,10 +6,10 @@ const syncData = async () => {
   try {
     const api = new SpireHubSpotAPI();
 
-    // await api.getCustomersByCompany("Bethel", 1000);
-    // await api.getContactsByCompany("Bethel", 1000);
-    // await api.getProductsByCompany("Bethel", 1000);
-    await api.getDealsByCompany("Bethel", 1000);
+    await api.getCustomersByCompany("Bethel");
+    await api.getContactsByCompany("Bethel");
+    await api.getProductsByCompany("Bethel");
+    await api.getDealsByCompany("Bethel");
 
     logger.info(
       "Data fetched from Spire successfully. Starting to post to HubSpot..."
@@ -24,9 +24,9 @@ const syncData = async () => {
     // await api.postProductsToHubspot().catch((error) => {
     //   logger.error("Error posting products to HubSpot:", error);
     // });
-    await api.postDealsToHubspot().catch((error) => {
-      logger.error("Error posting deals to HubSpot:", error);
-    });
+    // await api.postDealsToHubspot().catch((error) => {
+    //   logger.error("Error posting deals to HubSpot:", error);
+    // });
 
     logger.info("Data synchronization completed successfully.");
   } catch (error) {
@@ -35,6 +35,7 @@ const syncData = async () => {
 };
 
 function startSyncJob() {
+  syncData();
   // Runs at 00:00, 06:00, 12:00, and 18:00 every day
   cron.schedule("0 0,6,12,18 * * *", syncData);
   logger.info(
